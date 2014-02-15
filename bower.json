@@ -2,7 +2,8 @@
   "name": "polymer-ui-nav-arrow",
   "private": true,
   "dependencies": {
-    "polymer": "Polymer/polymer#master",
-    "polymer-ui-arrow": "Polymer/polymer-ui-arrow#master"
-  }
+    "polymer": "Polymer/polymer#0.2.0",
+    "polymer-ui-arrow": "Polymer/polymer-ui-arrow#0.2.0"
+  },
+  "version": "0.2.0"
 }
