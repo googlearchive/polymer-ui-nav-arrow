@@ -8,8 +8,8 @@ license that can be found in the LICENSE file.
  * @module Polymer UI Elements
  */
 /**
- * polymer-ui-nav-arrow is a polymer-ui-arrow that can be positioned to the 
- * right of the target node.  This element is used in 
+ * polymer-ui-nav-arrow is a polymer-ui-arrow that can be positioned to the
+ * right of the target node.  This element is used in
  * <a href="polymer-ui-sidebar-menu.html">polymer-ui-sidebar-menu</a>.
  *
  * Example:
@@ -37,19 +37,27 @@ license that can be found in the LICENSE file.
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../polymer-ui-arrow/polymer-ui-arrow.html">
 
-<polymer-element name="polymer-ui-nav-arrow" extends="polymer-ui-arrow" attributes="target">
+<polymer-element name="polymer-ui-nav-arrow" extends="polymer-ui-arrow" attributes="target position">
   <template>
     <link rel="stylesheet" href="polymer-ui-nav-arrow.css">
     <shadow></shadow>
   </template>
   <script>
     Polymer('polymer-ui-nav-arrow', {
+      position: 'right',
       direction: 'left',
       size: 9,
       borderColor: '#000',
       show: false,
+      created: function () {
+        this.positionChanged('', this.position);
+      },
       enteredView: function() {
         this.showChanged();
+      },
+      positionChanged: function (oldVal, newVal) {
+        this.classList.remove('polymer-position-' + oldVal);
+        this.classList.add('polymer-position-' + newVal);
       },
       showChanged: function() {
         this.classList.toggle('hidden', !this.show);
@@ -62,13 +70,13 @@ license that can be found in the LICENSE file.
       },
       translateY: function(y) {
         var s = this.style;
-        s.webkitTransform = s.mozTransform = s.msTransform = s.transform = 
+        s.webkitTransform = s.mozTransform = s.msTransform = s.transform =
           'translate3d(0,' + y + 'px,0)';
       },
       move: function() {
         var t = this.target;
         // if the target has getOffsetMiddle(), use that instead
-        var y = t.getOffsetMiddle ? t.getOffsetMiddle() : 
+        var y = t.getOffsetMiddle ? t.getOffsetMiddle() :
             (t.offsetTop + t.offsetHeight/2);
         this.translateY(y);
       }
