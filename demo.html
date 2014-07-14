@@ -16,8 +16,12 @@ license that can be found in the LICENSE file.
       .container {
         position: relative;
         width: 300px;
+        margin-bottom: 40px;
       }
-      
+      .container.horizontal {
+        width: auto;
+      }
+
       polymer-selector {
         display: block;
         border: 1px solid #ccc;
@@ -25,14 +29,21 @@ license that can be found in the LICENSE file.
         background: #666;
         color: white;
       }
-      
-      polymer-selector > * {
+
+      polymer-selector > div {
         height: 40px;
         line-height: 40px;
         padding: 0 20px;
         border-bottom: 1px solid #ccc;
       }
-      
+
+      polymer-selector > span {
+        height: 40px;
+        line-height: 40px;
+        padding: 0 20px;
+        display: inline-block;
+      }
+
       polymer-selector > *.polymer-selected {
         background: #333;
       }
@@ -49,14 +60,27 @@ license that can be found in the LICENSE file.
       </polymer-selector>
       <polymer-ui-nav-arrow></polymer-ui-nav-arrow>
     </div>
-    
+
+    <div class="container horizontal">
+      <polymer-selector>
+        <span>Item 1</span>
+        <span>Item 2</span>
+        <span>Item 3</span>
+        <span>Item 4</span>
+        <span>Item 5</span>
+      </polymer-selector>
+      <polymer-ui-nav-arrow position="bottom" direction="up" axis="x"></polymer-ui-nav-arrow>
+    </div>
+
     <script>
       document.addEventListener('polymer-ready', function() {
-        var selector = document.querySelector('polymer-selector');
-        selector.addEventListener('polymer-select', function(e) {
-          if (e.detail.isSelected) {
-            document.querySelector('polymer-ui-nav-arrow').target = e.detail.item;
-          }
+        var selectors = document.querySelectorAll('polymer-selector');
+        [].forEach.call(selectors, function (selector) {
+          selector.addEventListener('polymer-select', function(e) {
+            if (e.detail.isSelected) {
+              selector.parentNode.querySelector('polymer-ui-nav-arrow').target = e.detail.item;
+            }
+          });
         });
       })
     </script>
